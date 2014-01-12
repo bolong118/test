@@ -1,0 +1,367 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% ICML 2014 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use the following line _only_ if you're still using LaTeX 2.09.
+%\documentstyle[icml2014,epsf,natbib]{article}
+% If you rely on Latex2e packages, like most moden people use this:
+\documentclass{article}
+
+% use Times
+\usepackage{times}
+% For figures
+\usepackage{graphicx} % more modern
+%\usepackage{epsfig} % less modern
+\usepackage{subfigure} 
+
+% For citations
+\usepackage{natbib}
+
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\usepackage{calc}
+\usepackage[T1]{fontenc}
+\usepackage{xspace}
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm,amscd,amsfonts}
+\usepackage{bm}
+
+% As of 2011, we use the hyperref package to produce hyperlinks in the
+% resulting PDF.  If this breaks your system, please commend out the
+% following usepackage line and replace \usepackage{icml2014} with
+% \usepackage[nohyperref]{icml2014} above.
+\usepackage{hyperref}
+
+% Packages hyperref and algorithmic misbehave sometimes.  We can fix
+% this with the following command.
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Employ the following version of the ``usepackage'' statement for
+% submitting the draft version of the paper for review.  This will set
+% the note in the first column to ``Under review.  Do not distribute.''
+\usepackage{icml2014} 
+% Employ this version of the ``usepackage'' statement after the paper has
+% been accepted, when creating the final version.  This will set the
+% note in the first column to ``Proceedings of the...''
+%\usepackage[accepted]{icml2014}
+
+\newenvironment{packed_enum}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+\def\x{{\bm x}}
+\def\z{{\bm z}}
+\def\y{{\bm y}}
+\def\s{{\bm s}}
+\def\v{{\bm v}}
+\def\n{{\bm n}}
+\def\L{{\cal L}}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\minimize}{minimize}
+\DeclareMathOperator*{\st}{subject~to}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqs}{\begin{eqnarray}}
+\newcommand{\eeqs}{\end{eqnarray}}
+\newcommand{\barr}{\begin{array}}
+\newcommand{\earr}{\end{array}}
+
+\newcommand{\Rc}[0]{\ensuremath{\mathcal{R}}\xspace}
+\newcommand{\Nc}[0]{\ensuremath{\mathcal{N}}\xspace}
+\newcommand{\Gc}[0]{\ensuremath{\mathcal{G}}\xspace}
+\newcommand{\Dc}[0]{\ensuremath{\mathcal{D}}\xspace}
+\newcommand{\Oc}[0]{\ensuremath{\mathcal{O}}\xspace}
+\newcommand{\Wc}[0]{\ensuremath{\mathcal{W}}\xspace}
+\newcommand{\E}[0]{\ensuremath{\mathbb{E}}\xspace}
+
+\newcommand{\zerov}[0]{\ensuremath{{\bf 0}}\xspace}
+\newcommand{\onev}[0]{\ensuremath{{\bf 1}}\xspace}
+
+\newcommand{\ie}[0]{\emph{i.e., }}
+\newcommand{\ea}[0]{\emph{et al. }}
+\newcommand{\eg}[0]{\emph{e.g., }}
+\newcommand{\cf}[0]{\emph{cf. }}
+\newcommand{\etc}[0]{\emph{etc.}}
+
+\newcommand{\Amat}[0]{\ensuremath{{\bf A}}\xspace}
+\newcommand{\Bmat}[0]{\ensuremath{{\bf B}}\xspace}
+\newcommand{\Cmat}[0]{\ensuremath{{\bf C}}\xspace}
+\newcommand{\Dmat}[0]{\ensuremath{{\bf D}}\xspace}
+\newcommand{\Emat}[0]{\ensuremath{{\bf E}}\xspace}
+\newcommand{\Fmat}[0]{\ensuremath{{\bf F}}\xspace}
+\newcommand{\Gmat}[0]{\ensuremath{{\bf G}}\xspace}
+\newcommand{\Hmat}[0]{\ensuremath{{\bf H}}\xspace}
+\newcommand{\Imat}[0]{\ensuremath{{\bf I}}\xspace}
+\newcommand{\Jmat}[0]{\ensuremath{{\bf J}}\xspace}
+\newcommand{\Kmat}[0]{\ensuremath{{\bf K}}\xspace}
+\newcommand{\Lmat}[0]{\ensuremath{{\bf L}}\xspace}
+\newcommand{\Mmat}[0]{\ensuremath{{\bf M}}\xspace}
+\newcommand{\Nmat}[0]{\ensuremath{{\bf N}}\xspace}
+\newcommand{\Omat}[0]{\ensuremath{{\bf O}}\xspace}
+\newcommand{\Pmat}[0]{\ensuremath{{\bf P}}\xspace}
+\newcommand{\Qmat}[0]{\ensuremath{{\bf Q}}\xspace}
+\newcommand{\Rmat}[0]{\ensuremath{{\bf R}}\xspace}
+\newcommand{\Smat}[0]{\ensuremath{{\bf S}}\xspace}
+\newcommand{\Tmat}[0]{\ensuremath{{\bf T}}\xspace}
+\newcommand{\Umat}[0]{\ensuremath{{\bf U}}\xspace}
+\newcommand{\Vmat}[0]{\ensuremath{{\bf V}}\xspace}
+\newcommand{\Wmat}[0]{\ensuremath{{\bf W}}\xspace}
+\newcommand{\Xmat}[0]{\ensuremath{{\bf X}}\xspace}
+\newcommand{\Ymat}[0]{\ensuremath{{\bf Y}}\xspace}
+\newcommand{\Zmat}[0]{\ensuremath{{\bf Z}}\xspace}
+
+\newcommand{\1}[0]{\ensuremath{\boldsymbol{1}}\xspace}
+\newcommand{\av}[0]{\ensuremath{\boldsymbol{a}}\xspace}
+\newcommand{\bv}[0]{\ensuremath{\boldsymbol{b}}\xspace}
+\newcommand{\cv}[0]{\ensuremath{\boldsymbol{c}}\xspace}
+\newcommand{\dv}[0]{\ensuremath{\boldsymbol{d}}\xspace}
+\newcommand{\ev}[0]{\ensuremath{\boldsymbol{e}}\xspace}
+\newcommand{\fv}[0]{\ensuremath{\boldsymbol{f}}\xspace}
+\newcommand{\gv}[0]{\ensuremath{\boldsymbol{g}}\xspace}
+\newcommand{\hv}[0]{\ensuremath{\boldsymbol{h}}\xspace}
+\newcommand{\iv}[0]{\ensuremath{\boldsymbol{i}}\xspace}
+\newcommand{\jv}[0]{\ensuremath{\boldsymbol{j}}\xspace}
+\newcommand{\kv}[0]{\ensuremath{\boldsymbol{k}}\xspace}
+\newcommand{\lv}[0]{\ensuremath{\boldsymbol{l}}\xspace}
+\newcommand{\mv}[0]{\ensuremath{\boldsymbol{m}}\xspace}
+\newcommand{\nv}[0]{\ensuremath{\boldsymbol{n}}\xspace}
+\newcommand{\ov}[0]{\ensuremath{\boldsymbol{o}}\xspace}
+\newcommand{\pv}[0]{\ensuremath{\boldsymbol{p}}\xspace}
+\newcommand{\qv}[0]{\ensuremath{\boldsymbol{q}}\xspace}
+\newcommand{\rv}[0]{\ensuremath{\boldsymbol{r}}\xspace}
+\newcommand{\sv}[0]{\ensuremath{\boldsymbol{s}}\xspace}
+\newcommand{\tv}[0]{\ensuremath{\boldsymbol{t}}\xspace}
+\newcommand{\uv}[0]{\ensuremath{\boldsymbol{u}}\xspace}
+\newcommand{\vv}[0]{\ensuremath{\boldsymbol{v}}\xspace}
+\newcommand{\wv}[0]{\ensuremath{\boldsymbol{w}}\xspace}
+\newcommand{\xv}[0]{\ensuremath{\boldsymbol{x}}\xspace}
+\newcommand{\yv}[0]{\ensuremath{\boldsymbol{y}}\xspace}
+\newcommand{\zv}[0]{\ensuremath{\boldsymbol{z}}\xspace}
+
+\newcommand{\Gammamat}[0]{\ensuremath{\boldsymbol{\Gamma}}\xspace}
+\newcommand{\Deltamat}[0]{\ensuremath{\boldsymbol{\Delta}}\xspace}
+\newcommand{\Thetamat}[0]{\ensuremath{\boldsymbol{\Theta}}\xspace}
+\newcommand{\Lambdamat}[0]{\ensuremath{\boldsymbol{\Lambda}}\xspace}
+\newcommand{\Ximat}[0]{\ensuremath{\boldsymbol{\Xi}}\xspace}
+\newcommand{\Pimat}[0]{\ensuremath{\boldsymbol{\Pi}}\xspace}
+\newcommand{\Sigmamat}[0]{\ensuremath{\boldsymbol{\Sigma}}\xspace}
+\newcommand{\Upsilonmat}[0]{\ensuremath{\boldsymbol{\Upsilon}}\xspace}
+\newcommand{\Phimat}[0]{\ensuremath{\boldsymbol{\Phi}}\xspace}
+\newcommand{\Psimat}[0]{\ensuremath{\boldsymbol{\Psi}}\xspace}
+\newcommand{\Omegamat}[0]{\ensuremath{\boldsymbol{\Omega}}\xspace}
+
+\newcommand{\alphav}[0]{\ensuremath{\boldsymbol{\alpha}}\xspace}
+\newcommand{\betav}[0]{\ensuremath{\boldsymbol{\beta}}\xspace}
+\newcommand{\gammav}[0]{\ensuremath{\boldsymbol{\gamma}}\xspace}
+\newcommand{\deltav}[0]{\ensuremath{\boldsymbol{\delta}}\xspace}
+\newcommand{\epsilonv}[0]{\ensuremath{\boldsymbol{\epsilon}}\xspace}
+\newcommand{\zetav}[0]{\ensuremath{\boldsymbol{\zeta}}\xspace}
+\newcommand{\etav}[0]{\ensuremath{\boldsymbol{\eta}}\xspace}
+\newcommand{\thetav}[0]{\ensuremath{\boldsymbol{\theta}}\xspace}
+\newcommand{\iotav}[0]{\ensuremath{\boldsymbol{\iota}}\xspace}
+\newcommand{\kappav}[0]{\ensuremath{\boldsymbol{\kappa}}\xspace}
+\newcommand{\lambdav}[0]{\ensuremath{\boldsymbol{\lambda}}\xspace}
+\newcommand{\muv}[0]{\ensuremath{\boldsymbol{\mu}}\xspace}
+\newcommand{\nuv}[0]{\ensuremath{\boldsymbol{\nu}}\xspace}
+\newcommand{\xiv}[0]{\ensuremath{\boldsymbol{\xi}}\xspace}
+\newcommand{\omicronv}[0]{\ensuremath{\boldsymbol{\omicron}}\xspace}
+\newcommand{\piv}[0]{\ensuremath{\boldsymbol{\pi}}\xspace}
+\newcommand{\rhov}[0]{\ensuremath{\boldsymbol{\rho}}\xspace}
+\newcommand{\sigmav}[0]{\ensuremath{\boldsymbol{\sigma}}\xspace}
+\newcommand{\tauv}[0]{\ensuremath{\boldsymbol{\tau}}\xspace}
+\newcommand{\upsilonv}[0]{\ensuremath{\boldsymbol{\upsilon}}\xspace}
+\newcommand{\phiv}[0]{\ensuremath{\boldsymbol{\phi}}\xspace}
+\newcommand{\chiv}[0]{\ensuremath{\boldsymbol{\chi}}\xspace}
+\newcommand{\psiv}[0]{\ensuremath{\boldsymbol{\psi}}\xspace}
+\newcommand{\omegav}[0]{\ensuremath{\boldsymbol{\omega}}\xspace}
+
+\newcommand{\varepsilonv}[0]{\ensuremath{\boldsymbol{\varepsilon}}\xspace}
+\newcommand{\varthetav}[0]{\ensuremath{\boldsymbol{\vartheta}}\xspace}
+\newcommand{\varpiv}[0]{\ensuremath{\boldsymbol{\varpi}}\xspace}
+\newcommand{\varrhov}[0]{\ensuremath{\boldsymbol{\varrho}}\xspace}
+\newcommand{\varsigmav}[0]{\ensuremath{\boldsymbol{\varsigma}}\xspace}
+\newcommand{\varphiv}[0]{\ensuremath{\boldsymbol{\varphi}}\xspace}
+
+\newcommand{\eps}[0]{\ensuremath{\epsilon}\xspace}
+\newcommand{\xtilde}[0]{\ensuremath{\widetilde{{\bf x}}}\xspace}
+\newcommand{\xhat}[0]{\ensuremath{\widehat{\xv}}\xspace}
+\newcommand{\Gauss}[3]{\mathcal{N}\left(#1|#2,#3\right)}
+
+\newcommand{\ang}[1]{\langle{#1}\rangle}
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{pADMM}
+
+\begin{document}
+
+\twocolumn[
+\icmltitle{Probabilistic Alternating Direction Method of Multipliers}
+
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2014
+% package.
+\icmlauthor{Your Name}{email@yourdomain.edu}
+\icmladdress{Your Fantastic Institute,
+            314159 Pi St., Palo Alto, CA 94306 USA}
+\icmlauthor{Your CoAuthor's Name}{email@coauthordomain.edu}
+\icmladdress{Their Fantastic Institute,
+            27182 Exp St., Toronto, ON M6H 2T1 CANADA}
+
+% You may provide any keywords that you 
+% find helpful for describing your paper; these are used to populate 
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{Distributed Learning, Bayesian Inference, Big Data}
+
+\vskip 0.3in
+]
+
+\begin{abstract} 
+
+\end{abstract} 
+
+\section{Introduction}
+
+\section{Preliminaries}
+\subsection{Problem formulation}
+In the following we consider a general optimization problem of the form
+\begin{equation}\label{general_obj}
+\minimize ~ \sum_{n\in\Omega}l(y_n|\theta) + h(\theta).
+\end{equation}
+Here $l(y_n|\theta)$ is the loss function, $h(\theta)$ is the regularization function, and the observed data is denoted as $\mathcal{Y} = \{y_n, n\in\Omega\}$. If $\mathcal{Y}$ is partitioned into $B$ blocks, with each data block denoted as $\yv_b = \{y_n, n \in \Omega_b\}$ and $\Omega_b$ represents the index set of $b^{th}$ data block,  we can re-write (\ref{general_obj}) into the following equivalent optimization problem:
+\begin{equation}\label{admm_obj}
+\begin{gathered}
+\minimize ~ \sum_{b=1}^B\sum_{n\in\Omega_b}l(y_n,\theta_b) + h(\theta),\\
+\st ~ \theta_b - \theta = 0, ~ b = 1,\ldots,B.
+\end{gathered}
+\end{equation}
+
+\subsection{Distributed learning via ADMM}
+
+The ADMM formulation for the problem (\ref{admm_obj}) can be derived directly from the following augmented Lagrangian
+\begin{equation}\label{admm_lag_global}
+L_\rho(\{\theta_b, \lambda_b\}_{b=1}^B, \theta) =  \sum_{b=1}^BL_\rho(\theta_b, \lambda_b, \theta) + h(\theta).
+\end{equation}
+Here $L_\rho(\theta_b, \lambda_b, \theta)$ is the local augmented Lagrangian for the $b^{th}$ data block defined as follows
+\begin{equation}\label{admm_lag_local}
+L_\rho(\theta_b, \lambda_b, \theta)  = \sum_{n\in\Omega_b}l(y_n, \theta_b) + \lambda_b\cdot(\theta_b - \theta) + \frac{\rho}{2}||\theta_b - \theta||_2^2.
+\end{equation}
+Where $\cdot$ is the dot product operator and $\rho > 0$ is a tuning parameter. Based on (\ref{admm_lag_global}) and (\ref{admm_lag_local}), ADMM consists of the iterations
+\begin{equation}\label{admm_update_local}
+\theta_b^{k+1} = \argmin_{\theta_b}L_\rho(\theta_b, \lambda_b^k, \theta^k)
+\end{equation}
+\begin{equation}\label{admm_update_global}
+\theta^{k+1} = \argmin_\theta\sum_{b=1}^B\frac{\rho}{2}||\theta_b^{k+1} - \theta + \frac{\lambda_b^k}{\rho}||_2^2 + h(\theta)
+\end{equation}
+\begin{equation}\label{admm_update_lag}
+\lambda_b^{k+1} = \lambda_b^k + \rho(\theta_b^{k+1} - \theta)
+\end{equation}
+Note that (\ref{admm_update_local}) and (\ref{admm_update_lag}) can be carried out independently for each $b = 1, \ldots, B$.
+
+\subsection{Distributed learning from a Bayesian perspective }
+
+Denote the global parameter as $\theta$, each data block is augmented with a latent (unobserved) variable $\theta_b$ such that $\theta_b \sim p(\theta_b|\theta, \gamma_b)$, \eg the local parameter $\theta_b$ is modelled as a random variable drawn from a distribution that is dependent on global parameter $\theta$ and some hyperparameter $\gamma_b$. As a result, the optimization problem can be formulated as
+\begin{equation}\label{bayes_global}
+\minimize ~ \sum_{b=1}^B F(q(\theta_b), \theta) + h(\theta)
+\end{equation}
+Here $F(q(\theta_b), \gamma_b, \theta)$ is the local objective function for the $b^{th}$ data block
+\begin{equation}\label{bayes_local}
+F(q(\theta_b), \gamma_b, \theta) = \mathbb{D}[q(\theta_b)||p(\theta_b|\theta, \gamma_b)] + \sum_{n\in\Omega_b}\mathbb{E}_q[l(y_n, \theta_b)],
+\end{equation}
+where $\mathbb{D}[\cdot||\cdot]$ represents the Kullback-Leibler divergence, $\mathbb{E}_q[\cdot]$ is the expectation take with respect to distribution $q(\cdot)$. Minimizing objective function (\ref{bayes_local}) with respect to $q(\theta_b)$ gives the following optimal solution for $q(\theta_b)$
+\begin{equation}\label{bayes_local}
+q(\theta_b) = \frac{1}{Z(\gamma_b, \theta)}p(\theta_b|\theta, \gamma_b)e^{\sum_{n\in\Omega_b}l(y_n, \theta_b)},
+\end{equation}
+where $Z(\gamma_b, \theta) = \int_{\theta_b}p(\theta_b|\theta, \gamma_b)e^{\sum_{n\in\Omega_b}l(y_n, \theta_b)}d\theta_b$ is the normalization constant. Note that when $l(y_n, \theta_b)$ can be interpreted as a negative log-likelihood function (\eg squared $\ell_2$ and $\ell_1$ loss functions as unnormalized negative Gaussian and Laplace log-likelihood function respectively, logistic loss function as unnormalized negative logistic log-likelihood function respectively), minimizing (\ref{bayes_local}) can be shown to be equivalent to solving the Bayes' rule based which the optimal solution (\ref{bayes_local}) can be directly derived. Given $q(\theta_b)$, the global parameter $\theta$ can be updated as follows
+\begin{equation*}
+\theta = \argmin_{\theta}\sum_{b=1}^B\mathbb{E}_q[-\log p(\theta_b|\theta, \gamma_b)] + h(\theta).
+\end{equation*}
+Hyperparameter $\gamma_b$ can be updated using empirical Bayes method
+\begin{equation*}
+\gamma_b = \argmin_{\gamma_b} \mathbb{E}_q[-\log p(\theta_b|\theta, \gamma_b)]
+\end{equation*}
+
+\section{Proposed Model}
+We propose the following distributed learning problem
+\begin{equation}\label{basic_model}
+\begin{gathered}
+\minimize \quad\sum_{b=1}^B F(q(\theta_b), \theta, \gamma_b) + h(\theta)\\
+\st \quad \mathbb{E}_q[\theta_b] = \theta, ~ b = 1, \ldots, B
+\end{gathered}
+\end{equation}
+,  $f(x_n, \theta^b)$ is the cost function, and $\theta^b$ is a random variable with prior distribution $p(\theta^b|\theta)$, which depends on global parameter $\theta$, in the following we focus on the Gaussian case $p(\theta^b|\theta) = \mathcal{N}(\theta^b | \theta, \gamma^b)$, with mean $\theta$ and precision parameter $\gamma^b$.
+
+Given the global parameter $\theta$, we have the following local optimization problem for each block $b$
+\begin{equation}\label{local_model}
+\begin{gathered}
+\min_{q(\theta^b)} ~ \mathbb{D}[q(\theta^b)||p(\theta^b|\theta)] + \sum_{n\in\Omega^b}\mathbb{E}_q[f(x_n, \theta^b)] \\
+\mbox{subject to} ~ \mathbb{E}_q[\theta^b] = \theta
+\end{gathered}
+\end{equation}
+With the Gaussian assumption on $p(\theta^b|\theta)$,  the optimal solution of $q(\theta^b)$ in (\ref{local_model}) has the following form
+\begin{equation}\label{post_data_fcn}
+q(\theta^b) = \frac{1}{Z(\lambda^b, \theta, \gamma^b)}e^{-\sum_{n\in\Omega^b}f(x_n, \theta^b) - \lambda^b(\theta^b-\theta) - \frac{\gamma^b}{2}(\theta^b-\theta)^2}
+\end{equation}
+where $Z(\lambda^b, \theta, \gamma^b) = \int p(\theta^b|\theta)e^{-\sum_{n\in\Omega^b}f(x_n, \theta^b) - \lambda^b(\theta^b-\theta) - \frac{\gamma^b}{2}(\theta^b-\theta)^2} d\theta^b$ is the normalization constant and $\lambda^b$ is the Lagrange multipliers. When $Z(\lambda^b, \theta)$ is analytically intractable, \ie for logistic regression and low-rank matrix factorization, we propose to use the dual ascent algorithm instead as in the ADMM framework, where $\lambda^b$ is updated using gradient descent
+\begin{equation}
+{\lambda^b}^{t+1} = {\lambda^b}^t + \gamma^b(\mathbb{E}_q[\theta^b] - \theta)
+\end{equation}
+Note that the exponent in equation (\ref{post_data_fcn}) can be re-written in the following way
+\begin{equation*}
+-\sum_{n\in\Omega^b}f(x_n, \theta^b) - \frac{\gamma^b}{2}(\theta^b- \theta + \lambda^b/\gamma^b)^2 + C(\lambda^b, \gamma^b)
+\end{equation*}
+Where $C(\lambda^b, \gamma^b)$ is independent of $\theta^b$. If we treat $f(x_n, \theta^b)$ as the negative log-likelihood function, then intuitively $\theta^b$'s prior distribution has a Gaussian form: $\mathcal{N}(\theta^b|\theta - \lambda^b/\gamma^b, \gamma^b)$. Based on this observation, we propose to update $\gamma^b$ as follows:
+\begin{equation}
+\gamma^b = \frac{|\mathcal{P}^b|}{\sum_{p \in \mathcal{P}^b}\mathbb{E}_q[(\theta_p^b-\theta_p+\lambda_p^b/\gamma^b)^2]}
+\end{equation}
+Finally, given $q(\theta^b)$, $\lambda^b$ and $\gamma^b$ from each local block $b$, the global optimization problem is
+\begin{equation}
+\min_{\theta}~ \sum_{b=1}^B\left( \mathbb{D}[q(\theta^b)||p(\theta^b|\theta)] + \lambda^b(\mathbb{E}_q[\theta^b] - \theta)\right) + h(\theta)
+\end{equation}
+Assume $h(\theta)$ is the following elastic net regularizer, which absorbs $\ell_1$ or $\ell_2$ norms regularizer as special cases
+\begin{equation}\label{en}
+h(\theta) = \lambda(\alpha||\theta||_1 + (1-\alpha)||\theta||^2_2)
+\end{equation}
+After simple algebra, with the Gaussian assumption on $p(\theta^b|\theta)$ the optimal solution for $\theta$ is
+\begin{equation}
+\theta = \frac{S\left(\sum_{b=1}^B\gamma^b\mathbb{E}_q[\theta^b], \lambda\alpha \right)}{\sum_{b=1}^B\gamma^b + \lambda(1-\alpha)}
+\end{equation}
+where $S(\cdot)$ is the soft-thresholding operator. 
+
+
+\section{Extenstions}
+\subsection{Full Bayesian treatment}
+\subsection{Network structure induced hierarchical modeling}
+
+
+\section{Random thoughts}
+
+\paragraph{On evaluating $\mathbb{E}_q[\theta_b]$} We have not explored importance resampling methods because of the potential for importance resampling to collapse to a single point in high dimensions.
+\paragraph{On updating $\gamma_b$} One is tempted to argue that the posterior distributions in each shard will have roughly the same shape, and so the draws from different shards can be combined with equal weighting. However, large samples on each shard are necessary for the preceding argument to apply. In particular, each worker must have enough information to estimate all components of $\theta$. Almost by definition, models that are complex enough to require very large data sets will have subsets of parameters that cannot be estimated on every shard.
+\paragraph{On adding the equality constraint} Oddly enough, small sample bias can play a role when analyzing large data sets. When the data are divided among many machines, bias that vanishes in the full data may still be present in each shard. Bootstrap/Subsampling based methods could be used to address this problem, however, they are sensitive to the subsampling rate (as all subsampling based methods do). In this work we propose to model such sample bias explicitly, which improves the overall performance with negligible computational overhead.
+\paragraph{Remarks} Our approach is a combine/trade-off of pure optimization based approach, and pure Bayesian based approach, and is a combine/trade-off between exact distributed algorithm and communication-efficient algorithm.
+
+
+
+\section{Application Examples}
+\subsection{Logistic regression}
+
+\subsection{Matrix completion}
+
+
+% In the unusual situation where you want a paper to appear in the
+% references without citing it in the main text, use \nocite
+\nocite{langley00}
+
+\bibliography{example_paper}
+\bibliographystyle{icml2014}
+
+\end{document} 
