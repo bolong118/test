@@ -230,6 +230,14 @@
 
 \section{Introduction}
 
+\section{Related Work}
+
+\subsection{Exact distributed algorithms}
+Exact computation,  requires constant communications among machines.
+
+\subsection{Communication efficient distributed algorithms}
+Approximate computation, only requires one communication among machines. 
+
 \section{Preliminaries}
 \subsection{Problem formulation}
 In the following we consider a general optimization problem of the form
@@ -268,7 +276,7 @@ Note that (\ref{admm_update_local}) and (\ref{admm_update_lag}) can be carried o
 
 \subsection{Distributed learning from a Bayesian perspective }
 
-Denote the global parameter as $\theta$, each data block is augmented with a latent (unobserved) variable $\theta_b$ such that $\theta_b \sim p(\theta_b|\theta, \gamma_b)$, \eg the local parameter $\theta_b$ is modelled as a random variable drawn from a distribution that is dependent on global parameter $\theta$ and some hyperparameter $\gamma_b$. As a result, the optimization problem can be formulated as
+Denote the global parameter as $\theta$, each data block is augmented with a latent (unobserved) variable $\theta_b$ such that $\theta_b \sim p(\theta_b|\theta, \gamma_b)$, \eg the local parameter $\theta_b$ is modelled as a random variable drawn from a distribution that is dependent on global parameter $\theta$ and some hyperparameter $\gamma_b$. In the Bayesian setting, we are interested in the posterior configuration $q(\theta_b)$, instead of a point estimate $\theta_b$ as in the ADMM formulation.  As a result, the optimization problem can be formulated as
 \begin{equation}\label{bayes_global}
 \minimize ~ \sum_{b=1}^B F(q(\theta_b), \theta) + h(\theta)
 \end{equation}
@@ -284,12 +292,18 @@ where $Z(\gamma_b, \theta) = \int_{\theta_b}p(\theta_b|\theta, \gamma_b)e^{\sum_
 \begin{equation*}
 \theta = \argmin_{\theta}\sum_{b=1}^B\mathbb{E}_q[-\log p(\theta_b|\theta, \gamma_b)] + h(\theta).
 \end{equation*}
-Hyperparameter $\gamma_b$ can be updated using empirical Bayes method
+Hyper-parameter $\gamma_b$ can be updated using empirical Bayes method
 \begin{equation*}
 \gamma_b = \argmin_{\gamma_b} \mathbb{E}_q[-\log p(\theta_b|\theta, \gamma_b)]
 \end{equation*}
+In the following we will focus on the latent Gaussian models, where $p(\theta_b|\theta, \gamma_b) = \mathcal{N}(\theta, \gamma_b^{-1})$, \eg the latent variable $\theta_b$ is drawn from a Gaussian distribution with mean $\theta$ and precision parameter $\gamma_b$.
 
-\section{Proposed Model}
+
+\subsection{Weighted average via empirical Bayes}
+
+\subsection{Small sample 	bias in big data}
+
+
 We propose the following distributed learning problem
 \begin{equation}\label{basic_model}
 \begin{gathered}
@@ -346,7 +360,7 @@ where $S(\cdot)$ is the soft-thresholding operator.
 
 \paragraph{On evaluating $\mathbb{E}_q[\theta_b]$} We have not explored importance resampling methods because of the potential for importance resampling to collapse to a single point in high dimensions.
 \paragraph{On updating $\gamma_b$} One is tempted to argue that the posterior distributions in each shard will have roughly the same shape, and so the draws from different shards can be combined with equal weighting. However, large samples on each shard are necessary for the preceding argument to apply. In particular, each worker must have enough information to estimate all components of $\theta$. Almost by definition, models that are complex enough to require very large data sets will have subsets of parameters that cannot be estimated on every shard.
-\paragraph{On adding the equality constraint} Oddly enough, small sample bias can play a role when analyzing large data sets. When the data are divided among many machines, bias that vanishes in the full data may still be present in each shard. Bootstrap/Subsampling based methods could be used to address this problem, however, they are sensitive to the subsampling rate (as all subsampling based methods do). In this work we propose to model such sample bias explicitly, which improves the overall performance with negligible computational overhead.
+\paragraph{On adding the equality constraint} Oddly enough, small sample bias can play a role when analyzing large data sets \cite{YZhang2012}. When the data are divided among many machines, bias that vanishes in the full data may still be present in each shard. Bootstrap/Subsampling based methods could be used to address this problem, however, they are sensitive to the subsampling rate (as all subsampling based methods do). In this work we propose to model such sample bias explicitly, which improves the overall performance with negligible computational overhead.
 \paragraph{Remarks} Our approach is a combine/trade-off of pure optimization based approach, and pure Bayesian based approach, and is a combine/trade-off between exact distributed algorithm and communication-efficient algorithm.
 
 
@@ -359,7 +373,6 @@ where $S(\cdot)$ is the soft-thresholding operator.
 
 % In the unusual situation where you want a paper to appear in the
 % references without citing it in the main text, use \nocite
-\nocite{langley00}
 
 \bibliography{example_paper}
 \bibliographystyle{icml2014}
