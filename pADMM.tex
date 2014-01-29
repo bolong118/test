@@ -275,8 +275,6 @@ AVGM is categorized as one type of ``divide-and-conquer'' method, where the data
 
 In the proposed probabilistic methods, instead of finding a point estimate $\theta_b$ for each block $b$, we model $\theta_b$ as a latent (unobserved) random variable and consider a more general problem of finding a distribution $q(\theta_b)$ over all possible configurations of it. In the following we first discuss modeling frameworks built on this idea, and then discuss the corresponding learning algorithm that enables the probabilistic methods to share similar computational merits of their well-studied non-probabilistic counterparts in the large-scale setting.
 
-%Prof. Carin, what type of reference do we want here? We proposed three methods in the following subsections, and we connected each of them to their non-probabilistic counterparts in the end of each subsection, with corresponding references. For example, MEM -> AVGM, HM -> Penalty method, pADMM -> ADMM.
-
 \subsection{Modeling the uncertainty}\label{MEM}
 
 Perhaps the most straightforward way of formulating an empirical-risk-minimization problem with respect to a distribution is via the maximum entropy principle, which is well-studied in the natural language processing literature \cite{Berger1996}. Under the maximum entropy principle, the problem becomes one of finding a distribution $\hat q(\theta_b)$, such that ($i$) we minimize the convex combination of local objective functions (\ref{avgm_local}) of block $b$ with respect to $\hat q(\theta_b)$, denoted as $\mathbb{E}_{\hat q(\theta_b)}[f(\theta_b)] = \int f(\theta_b)\hat q(\theta_b) d\theta_b$; and ($ii$) at the same time we maximize the entropy of $\hat q(\theta_b)$, denoted $\mathbb{H}[\hat q(\theta_b)] = -\int \hat q(\theta_b)\log  \hat q(\theta_b) d\theta$. The problem is formulated as
@@ -297,9 +295,8 @@ After some simple algebra, the optimal solution for (\ref{mem1}) has the form
 \end{equation}
 where $Z = \int e^{-f(\theta_b)} d\theta_b$ is the normalization constant. Note that AVGM actually finds the maximum likelihood estimate of (\ref{mem_solution}) with respect to $\theta_b$, which suggests that AVGM is a special case of MEM.
 
-%A different way to relate MEM to AVGM: Note that when $\hat q(\theta_b)$ is restricted to be a Dirac delta distribution with point mass at $\tilde\theta_b$, \eg $\hat q(\theta_b) = \delta_{\tilde\theta_b}(\theta_b)$, it's easy to show that $\tilde\theta_b = \hat\theta_b$, where the later corresponds to the empirical local minimizer of AVGM in (\ref{avgm})
 
-\subsection{Sharing statistical strength}\label{HM}
+\subsection{Sharing the statistical strength}\label{HM}
 
 One common feature of the AVGM and MEM methods is that the local estimators only use data from the their own block, \ie $\theta_b$ only depends on $\mathcal{Y}_b$, and is independent of data from other blocks. This strategy leads to communication-efficient distributed algorithms, because different computing nodes only need to communicate once when estimating the global parameter $\theta$. However, as discussed at the beginning of Section \ref{proposed_frameworks}, the information contained in one single block may not be sufficient to obtain an accurate estimate, and it could be helpful to share the statistical strength across data blocks when estimating the local parameters.
 
